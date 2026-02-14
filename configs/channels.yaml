@@ -1,0 +1,12 @@
+channels:
+  - id: UC_x5XG1OV2P6uZZ5FSM9Ttw
+    name: GoogleDevelopers
+    max_results: 30
+
+  - id: UCVHFbqXqoYvEWM1Ddxl0QDg
+    name: AlexTheAnalyst
+    max_results: 20
+
+  - id: UC8butISFwT-Wl7EV0hUK0BQ
+    name: freeCodeCamp
+    max_results: 25
