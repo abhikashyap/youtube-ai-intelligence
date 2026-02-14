@@ -6,7 +6,9 @@ USER root
 RUN pip install --no-cache-dir \
     "pyyaml>=6.0.3" \
     "python-dotenv>=1.2.1" \
-    "requests>=2.32.5"
+    "requests>=2.32.5" \
+    "jupyter" \
+    "notebook"
 
 # Copy project source code into the Glue workspace.
 COPY jobs/    /home/hadoop/workspace/jobs/
