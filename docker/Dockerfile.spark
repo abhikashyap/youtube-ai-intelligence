@@ -1,0 +1,17 @@
+FROM --platform=linux/amd64 amazon/aws-glue-libs:5
+
+USER root
+
+# Install project Python dependencies needed by Spark/Glue jobs.
+RUN pip install --no-cache-dir \
+    "pyyaml>=6.0.3" \
+    "python-dotenv>=1.2.1" \
+    "requests>=2.32.5"
+
+# Copy project source code into the Glue workspace.
+COPY jobs/    /home/hadoop/workspace/jobs/
+COPY utils/   /home/hadoop/workspace/utils/
+COPY configs/ /home/hadoop/workspace/configs/
+COPY schemas/ /home/hadoop/workspace/schemas/
+
+USER hadoop

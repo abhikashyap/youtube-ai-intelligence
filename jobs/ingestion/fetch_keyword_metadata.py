@@ -11,9 +11,16 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import time
 from datetime import date
 from typing import Any
+
+# Ensure project root is on sys.path so `utils` is importable when
+# this file is executed directly.
+_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))
+if _PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, _PROJECT_ROOT)
 
 import requests
 

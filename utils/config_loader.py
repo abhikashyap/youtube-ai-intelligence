@@ -9,12 +9,14 @@ import os
 from typing import Any
 
 import yaml
+from dotenv import load_dotenv
+
+load_dotenv()
 
 _CONFIGS_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
     "configs",
 )
-
 
 def _load_yaml(filename: str) -> dict[str, Any]:
     """Load and parse a YAML file from the configs directory.
@@ -57,7 +59,7 @@ def get_youtube_api_key() -> str:
     Raises:
         EnvironmentError: If ``YOUTUBE_API_KEY`` is not set.
     """
-    key = os.environ.get("YOUTUBE_API_KEY")
+    key = os.getenv("YOUTUBE_API_KEY")
     if not key:
         raise EnvironmentError(
             "YOUTUBE_API_KEY environment variable is not set. "

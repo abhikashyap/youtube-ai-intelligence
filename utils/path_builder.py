@@ -6,9 +6,12 @@ can be swapped without touching business logic.
 """
 from __future__ import annotations
 
+import glob as _glob
+import json
 import os
 from datetime import date
 from pathlib import Path
+from typing import Any
 
 # Root of the local data lake — override via DATA_ROOT env var.
 _DEFAULT_DATA_ROOT = os.path.join(
@@ -91,3 +94,56 @@ def _sanitise_keyword(keyword: str) -> str:
 def ensure_directory(path: str) -> None:
     """Create directory (and parents) if it does not exist."""
     Path(path).mkdir(parents=True, exist_ok=True)
+
+
+def build_compacted_jsonl_path(
+    source: str,
+    identifier: str,
+    dt: date | None = None,
+) -> str:
+    """Return the path for the compacted JSONL file within a bronze partition."""
+    directory = get_bronze_metadata_path(source, identifier, dt)
+    return os.path.join(directory, "_compacted.jsonl")
+
+
+def build_compaction_manifest_path(
+    source: str,
+    identifier: str,
+    dt: date | None = None,
+) -> str:
+    """Return the path for the compaction manifest within a bronze partition."""
+    directory = get_bronze_metadata_path(source, identifier, dt)
+    return os.path.join(directory, "_compaction_manifest.json")
+
+
+def iter_compacted_bronze_records(
+    source: str,
+    identifier: str,
+    dt: date | None = None,
+) -> list[dict[str, Any]]:
+    """Read all records from a compacted JSONL bronze partition.
+
+    Falls back to reading individual ``video_*.json`` files if no
+    compacted file exists yet (backward compatibility).
+    """
+    jsonl_path = build_compacted_jsonl_path(source, identifier, dt)
+
+    if os.path.exists(jsonl_path):
+        records = []
+        with open(jsonl_path, "r") as fh:
+            for line in fh:
+                line = line.strip()
+                if line:
+                    records.append(json.loads(line))
+        return records
+
+    # Fallback: read individual files
+    partition_dir = get_bronze_metadata_path(source, identifier, dt)
+    if not os.path.isdir(partition_dir):
+        return []
+
+    records = []
+    for json_file in sorted(_glob.glob(os.path.join(partition_dir, "video_*.json"))):
+        with open(json_file, "r") as fh:
+            records.append(json.load(fh))
+    return records

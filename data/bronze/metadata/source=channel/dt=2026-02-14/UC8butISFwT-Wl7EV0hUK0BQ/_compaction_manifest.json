@@ -1,0 +1,20 @@
+{
+  "source": "channel",
+  "identifier": "UC8butISFwT-Wl7EV0hUK0BQ",
+  "dt": "2026-02-14",
+  "compacted_at": "2026-02-14",
+  "total_records": 9,
+  "files_compacted_this_run": [
+    "video_7ysrM5BMe6Q.json",
+    "video_KUbbb0T1YZ8.json",
+    "video_UJjKVceWmdM.json",
+    "video_cjam-BWAaL8.json",
+    "video_gmuTjeQUbTM.json",
+    "video_l57xKN6OBhY.json",
+    "video_lEcULR30-GM.json",
+    "video_n1sfrc-RjyM.json",
+    "video_ug8W0sFiVJo.json"
+  ],
+  "files_skipped_this_run": 0,
+  "errors_this_run": 0
+}

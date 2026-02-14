@@ -1,0 +1,16 @@
+{
+  "source": "channel",
+  "identifier": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+  "dt": "2026-02-14",
+  "compacted_at": "2026-02-14",
+  "total_records": 5,
+  "files_compacted_this_run": [
+    "video_46dX6AAcx7I.json",
+    "video_9xlYYfQhU8U.json",
+    "video_dq6mUPvL4dI.json",
+    "video_iswLOoreuyM.json",
+    "video_mphShv2MJcY.json"
+  ],
+  "files_skipped_this_run": 0,
+  "errors_this_run": 0
+}

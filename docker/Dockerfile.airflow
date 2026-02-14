@@ -1,0 +1,15 @@
+FROM --platform=linux/amd64 apache/airflow:3.1.7-python3.12
+
+# The base image already includes apache-airflow and the Amazon provider.
+# Install only the additional project dependencies as the airflow user.
+RUN pip install --no-cache-dir \
+    "pyyaml>=6.0.3" \
+    "python-dotenv>=1.2.1" \
+    "requests>=2.32.5"
+
+# Copy project source code into the image.
+COPY --chown=airflow:0 dags/    /opt/airflow/dags/
+COPY --chown=airflow:0 jobs/    /opt/airflow/jobs/
+COPY --chown=airflow:0 utils/   /opt/airflow/utils/
+COPY --chown=airflow:0 configs/ /opt/airflow/configs/
+COPY --chown=airflow:0 schemas/ /opt/airflow/schemas/
